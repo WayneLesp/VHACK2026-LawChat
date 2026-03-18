@@ -1,7 +1,7 @@
 import { GoogleGenAI, Type, Modality } from "@google/genai";
 
 const getApiKey = () => {
-  const key = process.env.GEMINI_API_KEY;
+  const key = import.meta.env.VITE_GEMINI_API_KEY || import.meta.env.GEMINI_API_KEY;
   if (!key) {
     throw new Error('Gemini API key is missing. Please check your environment configuration.');
   }
@@ -25,7 +25,7 @@ const getLanguageName = (code: string) => {
 export const explainDocument = async (base64Image: string, mimeType: string = 'image/jpeg', language: string = 'en') => {
   const langName = getLanguageName(language);
   const model = ai.models.generateContent({
-    model: "gemini-3-flash-preview",
+    model: "gemini-2.5-flash",
     contents: [
       {
         parts: [
@@ -84,7 +84,7 @@ export const chatWithDocument = async (
   ` : '';
 
   const model = ai.models.generateContent({
-    model: "gemini-3-flash-preview",
+    model: "gemini-2.5-flash",
     contents: [
       {
         parts: [
@@ -129,7 +129,7 @@ export const askLaw = async (query: string, language: string = 'en', readingMode
   ` : '';
 
   const model = ai.models.generateContent({
-    model: "gemini-3-flash-preview",
+    model: "gemini-2.5-flash",
     contents: query,
     config: {
       systemInstruction: `You are LawChat, a legal expert assistant specializing in Malaysian law. 
@@ -151,7 +151,7 @@ export const askLaw = async (query: string, language: string = 'en', readingMode
 export const analyzeContract = async (base64Image: string, mimeType: string = 'image/jpeg', language: string = 'en') => {
   const langName = getLanguageName(language);
   const model = ai.models.generateContent({
-    model: "gemini-3-flash-preview",
+    model: "gemini-2.5-flash",
     contents: [
       {
         parts: [

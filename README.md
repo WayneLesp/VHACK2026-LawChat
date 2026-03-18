@@ -180,6 +180,28 @@ ASEAN is a mosaic of thousands of languages and dialects. However, digital gover
  
 ---
  
+
+## 📱 Mobile App Mode (iOS + Android)
+
+LawChat now ships as a **mobile-first installable web app**:
+
+- **Standalone app shell** for iPhone and Android home screens
+- **Bottom navigation + safe-area spacing** for notch devices
+- **Direct camera capture** for document and contract scanning
+- **Offline app shell caching** via a service worker for faster relaunches
+- **Mobile-friendly Google sign-in redirect flow** for embedded and mobile browsers
+
+### Install on iPhone
+1. Open the deployed site in Safari.
+2. Tap **Share**.
+3. Tap **Add to Home Screen**.
+4. Launch LawChat like a native app.
+
+### Install on Android
+1. Open the deployed site in Chrome.
+2. Tap **Install app** or **Add to Home Screen**.
+3. Open LawChat from your launcher.
+
 ## 🚀 Getting Started
  
 #### Prerequisites
