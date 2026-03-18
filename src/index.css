@@ -128,3 +128,31 @@
 .dark ::-webkit-scrollbar-button:single-button:vertical:increment {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(203, 213, 224)'><polygon points='0,0 100,0 50,100'/></svg>");
 }
+
+
+html, body, #root {
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.standalone-shell {
+  min-height: 100dvh;
+}
+
+.safe-top {
+  padding-top: max(1rem, env(safe-area-inset-top));
+}
+
+.safe-bottom {
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+}
+
+@media (max-width: 767px) {
+  .card {
+    border-radius: 2rem;
+  }
+}

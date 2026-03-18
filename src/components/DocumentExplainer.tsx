@@ -6,6 +6,7 @@ import { explainDocument, chatWithDocument } from '../services/gemini';
 import { auth, db } from '../firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { useLocalization } from '../services/localization';
+import { getCaptureInputProps } from '../services/mobile';
 
 export const DocumentExplainer: React.FC<{ 
   language: string, 
@@ -29,6 +30,7 @@ export const DocumentExplainer: React.FC<{
   const [readingText, setReadingText] = useState('');
   const [highlightIndex, setHighlightIndex] = useState(-1);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const cameraInputRef = useRef<HTMLInputElement>(null);
   const chatEndRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const speechRef = useRef<SpeechSynthesisUtterance | null>(null);
@@ -255,7 +257,7 @@ export const DocumentExplainer: React.FC<{
       {!showAnalysis && !loading && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <button 
-            onClick={() => fileInputRef.current?.click()}
+            onClick={() => cameraInputRef.current?.click()}
             className={`card p-8 md:p-12 flex flex-col items-center justify-center gap-4 transition-all group border-2 ${
               theme === 'dark' 
                 ? 'bg-charcoal-deep border-white/5 hover:border-silver-glowing/30 hover:bg-white/5' 
@@ -291,12 +293,19 @@ export const DocumentExplainer: React.FC<{
               <p className={`text-sm font-medium ${theme === 'dark' ? 'text-off-white/60' : 'text-cocoa-deep/60'}`}>{t('docs.uploadFileDesc')}</p>
             </div>
           </button>
-          <input 
-            type="file" 
-            ref={fileInputRef} 
-            onChange={handleFileUpload} 
-            className="hidden" 
-            accept="image/*,application/pdf"
+          <input
+            type="file"
+            ref={cameraInputRef}
+            onChange={handleFileUpload}
+            className="hidden"
+            {...getCaptureInputProps('camera')}
+          />
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleFileUpload}
+            className="hidden"
+            {...getCaptureInputProps('gallery')}
           />
         </div>
       )}

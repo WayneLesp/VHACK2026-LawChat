@@ -6,6 +6,7 @@ import { askLaw, analyzeContract } from '../services/gemini';
 import { auth, db } from '../firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { useLocalization } from '../services/localization';
+import { getCaptureInputProps } from '../services/mobile';
 
 export const LawExplainer: React.FC<{ 
   language: string, 
@@ -35,6 +36,7 @@ export const LawExplainer: React.FC<{
   const [readingText, setReadingText] = useState('');
   const [highlightIndex, setHighlightIndex] = useState(-1);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const cameraInputRef = useRef<HTMLInputElement>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const speechRef = useRef<SpeechSynthesisUtterance | null>(null);
 
@@ -264,7 +266,7 @@ export const LawExplainer: React.FC<{
             <h3 className={`text-[10px] font-bold uppercase tracking-widest px-2 ${theme === 'dark' ? 'text-off-white/40' : 'text-cocoa-deep/40'}`}>{t('law.tools')}</h3>
             <div className="grid grid-cols-1 gap-2">
               <button 
-                onClick={() => fileInputRef.current?.click()}
+                onClick={() => cameraInputRef.current?.click()}
                 className={`flex items-center gap-2 p-3 rounded-xl border transition-all text-left group ${
                   mode === 'contract' 
                     ? (theme === 'dark' ? 'bg-silver-glowing text-charcoal-deep border-silver-glowing' : 'bg-gold-brushed text-white border-gold-brushed') 
@@ -273,6 +275,17 @@ export const LawExplainer: React.FC<{
               >
                 <Camera size={18} />
                 <p className="text-xs font-bold">{t('law.snap_contract')}</p>
+              </button>
+              <button 
+                onClick={() => fileInputRef.current?.click()}
+                className={`flex items-center gap-2 p-3 rounded-xl border transition-all text-left ${
+                  theme === 'dark' 
+                    ? 'bg-white/5 border-white/10 text-off-white hover:bg-white/10' 
+                    : 'bg-white border border-gold-brushed/10 text-cocoa-deep hover:bg-gold-brushed/5'
+                }`}
+              >
+                <FileSearch size={18} />
+                <p className="text-xs font-bold">Upload contract file</p>
               </button>
               <button 
                 onClick={clearChat}
@@ -287,7 +300,8 @@ export const LawExplainer: React.FC<{
               </button>
             </div>
           </div>
-          <input type="file" ref={fileInputRef} onChange={handleContractUpload} className="hidden" accept="image/*" />
+          <input type="file" ref={cameraInputRef} onChange={handleContractUpload} className="hidden" {...getCaptureInputProps('camera')} />
+          <input type="file" ref={fileInputRef} onChange={handleContractUpload} className="hidden" {...getCaptureInputProps('gallery')} />
         </div>
 
         {/* Main Interaction Area */}
