@@ -11,6 +11,7 @@
     "lint": "tsc --noEmit",
     "preview:host": "vite preview --host 0.0.0.0",
     "deploy:hosting": "npm run build && firebase deploy --only hosting"
+    "preview:host": "vite preview --host 0.0.0.0"
   },
   "dependencies": {
     "@google/genai": "^1.29.0",
