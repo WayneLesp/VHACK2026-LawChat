@@ -180,6 +180,26 @@ ASEAN is a mosaic of thousands of languages and dialects. However, digital gover
  
 ---
  
+
+## 📱 Flutter Mobile Rewrite
+
+A native Flutter rewrite scaffold now lives in `flutter_app/`.
+
+### Mobile Architecture
+- **Flutter + Riverpod + go_router** for the native client
+- **Firebase Auth + Cloud Firestore** for identity and persistence
+- **Express backend AI endpoints** in `server.ts` so both web and mobile can call Gemini without embedding model access directly in the mobile client
+- **Native camera, file picker, speech-to-text, and text-to-speech** planned through Flutter packages listed in `flutter_app/pubspec.yaml`
+
+### Mobile Quick Start
+```bash
+cd flutter_app
+flutter pub get
+flutter run --dart-define=API_BASE_URL=http://localhost:3000
+```
+
+> Note: platform folders are not committed here because the environment used for this change does not include the Flutter SDK. Run `flutter create .` inside `flutter_app/` before wiring Android/iOS build targets.
+
 ## 🚀 Getting Started
  
 #### Prerequisites
